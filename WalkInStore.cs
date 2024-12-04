@@ -549,7 +549,10 @@ namespace MobileInventory
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
-                string fileName = "Receipt.pdf";
+                // Get the path to the user's Downloads folder
+                string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                string fileName = Path.Combine(downloadsPath, "Receipt.pdf");
+
                 using (var document = new iTextSharp.text.Document())
                 {
                     PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
@@ -579,7 +582,7 @@ namespace MobileInventory
                     document.Close();
                 }
 
-                MessageBox.Show($"Receipt saved as {fileName}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Receipt saved to Downloads folder as {fileName}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Open the PDF file after creation
                 System.Diagnostics.Process.Start(fileName);
