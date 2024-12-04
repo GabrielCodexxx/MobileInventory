@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnSendOrder = new System.Windows.Forms.Button();
+            this.btnPay = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ProductViewGridCaloocanInventoryRequestOrder = new System.Windows.Forms.DataGridView();
             this.cbCategoryFilter = new System.Windows.Forms.ComboBox();
@@ -36,28 +36,35 @@
             this.ProductViewGridCaloocanInventory = new System.Windows.Forms.DataGridView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtAmountToPay = new System.Windows.Forms.TextBox();
+            this.txtInputMoney = new System.Windows.Forms.TextBox();
+            this.txtChange = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProductViewGridCaloocanInventoryRequestOrder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProductViewGridCaloocanInventory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnSendOrder
+            // btnPay
             // 
-            this.btnSendOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnSendOrder.ForeColor = System.Drawing.Color.White;
-            this.btnSendOrder.Location = new System.Drawing.Point(1021, 648);
-            this.btnSendOrder.Name = "btnSendOrder";
-            this.btnSendOrder.Size = new System.Drawing.Size(177, 45);
-            this.btnSendOrder.TabIndex = 47;
-            this.btnSendOrder.Text = "Send Order";
-            this.btnSendOrder.UseVisualStyleBackColor = false;
+            this.btnPay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnPay.ForeColor = System.Drawing.Color.White;
+            this.btnPay.Location = new System.Drawing.Point(1024, 977);
+            this.btnPay.Name = "btnPay";
+            this.btnPay.Size = new System.Drawing.Size(177, 45);
+            this.btnPay.TabIndex = 47;
+            this.btnPay.Text = "PAY";
+            this.btnPay.UseVisualStyleBackColor = false;
+            this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(904, 20);
+            this.label1.Location = new System.Drawing.Point(895, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(121, 37);
             this.label1.TabIndex = 46;
@@ -72,7 +79,7 @@
             this.ProductViewGridCaloocanInventoryRequestOrder.Name = "ProductViewGridCaloocanInventoryRequestOrder";
             this.ProductViewGridCaloocanInventoryRequestOrder.RowHeadersWidth = 62;
             this.ProductViewGridCaloocanInventoryRequestOrder.RowTemplate.Height = 28;
-            this.ProductViewGridCaloocanInventoryRequestOrder.Size = new System.Drawing.Size(392, 567);
+            this.ProductViewGridCaloocanInventoryRequestOrder.Size = new System.Drawing.Size(392, 583);
             this.ProductViewGridCaloocanInventoryRequestOrder.TabIndex = 45;
             // 
             // cbCategoryFilter
@@ -135,14 +142,74 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(903, 699);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(298, 37);
+            this.label2.TabIndex = 49;
+            this.label2.Text = "AMOUNT TO PAY";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(903, 861);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(161, 37);
+            this.label3.TabIndex = 50;
+            this.label3.Text = "CHANGE";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(903, 780);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(251, 37);
+            this.label4.TabIndex = 51;
+            this.label4.Text = "INPUT MONEY";
+            // 
+            // txtAmountToPay
+            // 
+            this.txtAmountToPay.Location = new System.Drawing.Point(910, 740);
+            this.txtAmountToPay.Name = "txtAmountToPay";
+            this.txtAmountToPay.Size = new System.Drawing.Size(389, 26);
+            this.txtAmountToPay.TabIndex = 52;
+            // 
+            // txtInputMoney
+            // 
+            this.txtInputMoney.Location = new System.Drawing.Point(910, 820);
+            this.txtInputMoney.Name = "txtInputMoney";
+            this.txtInputMoney.Size = new System.Drawing.Size(389, 26);
+            this.txtInputMoney.TabIndex = 53;
+            // 
+            // txtChange
+            // 
+            this.txtChange.Location = new System.Drawing.Point(910, 901);
+            this.txtChange.Name = "txtChange";
+            this.txtChange.Size = new System.Drawing.Size(389, 26);
+            this.txtChange.TabIndex = 54;
+            // 
             // WalkInStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(106)))), ((int)(((byte)(123)))));
             this.ClientSize = new System.Drawing.Size(1306, 1034);
+            this.Controls.Add(this.txtChange);
+            this.Controls.Add(this.txtInputMoney);
+            this.Controls.Add(this.txtAmountToPay);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnSendOrder);
+            this.Controls.Add(this.btnPay);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ProductViewGridCaloocanInventoryRequestOrder);
             this.Controls.Add(this.cbCategoryFilter);
@@ -164,7 +231,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnSendOrder;
+        private System.Windows.Forms.Button btnPay;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView ProductViewGridCaloocanInventoryRequestOrder;
         private System.Windows.Forms.ComboBox cbCategoryFilter;
@@ -172,5 +239,11 @@
         private System.Windows.Forms.TextBox txtSearchBar;
         private System.Windows.Forms.DataGridView ProductViewGridCaloocanInventory;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtAmountToPay;
+        private System.Windows.Forms.TextBox txtInputMoney;
+        private System.Windows.Forms.TextBox txtChange;
     }
 }

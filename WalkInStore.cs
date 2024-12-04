@@ -1,9 +1,11 @@
-﻿using System;
+﻿using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,13 @@ namespace MobileInventory
             InitializeComponent();
             LoadInventory();
             LoadRequestData();
+
+            // Initialize text boxes
+            txtAmountToPay.ReadOnly = true;
+            txtChange.ReadOnly = true;
+            txtInputMoney.KeyPress += TxtInputMoney_KeyPress; // Restrict input to numbers
+            txtInputMoney.TextChanged += TxtInputMoney_TextChanged; // Trigger change calculation
+
             // Initialize the overlay panel
             overlayPanel = new Panel
             {
@@ -37,6 +46,36 @@ namespace MobileInventory
             ProductViewGridCaloocanInventoryRequestOrder.CellDoubleClick += ProductViewGridCaloocanInventoryRequestOrder_CellDoubleClick;
         }
 
+        private void TxtInputMoney_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Allow only digits and control keys
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtInputMoney_TextChanged(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(txtInputMoney.Text, out decimal inputMoney) &&
+                decimal.TryParse(txtAmountToPay.Text, out decimal amountToPay))
+            {
+                if (inputMoney >= amountToPay)
+                {
+                    txtChange.Text = (inputMoney - amountToPay).ToString("F2");
+                }
+                else
+                {
+                    txtChange.Text = "Insufficient Amount";
+                }
+            }
+            else
+            {
+                txtChange.Text = "Invalid Input";
+            }
+        }
+
+
         private void ProductViewGridCaloocanInventory_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -48,11 +87,18 @@ namespace MobileInventory
                     string productId = selectedRow.Cells["ProductID"].Value?.ToString();
                     string productName = selectedRow.Cells["ProductName"].Value?.ToString();
                     decimal price = selectedRow.Cells["Price"].Value != DBNull.Value ? Convert.ToDecimal(selectedRow.Cells["Price"].Value) : 0;
+                    int availableStock = selectedRow.Cells["Stocks"].Value != DBNull.Value ? Convert.ToInt32(selectedRow.Cells["Stocks"].Value) : 0;
                     int stockIncrement = 1; 
 
                     if (string.IsNullOrEmpty(productId) || string.IsNullOrEmpty(productName))
                     {
                         MessageBox.Show("Product data is incomplete. Please check the product details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (availableStock <= 0)
+                    {
+                        MessageBox.Show($"Product '{productName}' is out of stock.", "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
@@ -287,6 +333,20 @@ namespace MobileInventory
                 ProductViewGridCaloocanInventoryRequestOrder.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
                 ProductViewGridCaloocanInventoryRequestOrder.Columns["ProductID"].Visible = false;
+
+                // Calculate total amount to pay
+                decimal totalAmount = 0;
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["Price"] != DBNull.Value)
+                    {
+                        totalAmount += Convert.ToDecimal(row["Price"]);
+                    }
+                }
+
+                txtAmountToPay.Text = totalAmount.ToString("F2");
+
+
             }
             catch (Exception ex)
             {
@@ -409,6 +469,125 @@ namespace MobileInventory
             AdminLogin adminLogin = new AdminLogin();
             adminLogin.Show();
             this.Hide();
+        }
+
+        private void btnPay_Click(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(txtInputMoney.Text, out decimal inputMoney) &&
+                 decimal.TryParse(txtAmountToPay.Text, out decimal amountToPay) &&
+                 inputMoney >= amountToPay)
+            {
+                try
+                {
+                    // Deduct stock quantities from InventoryProducts based on Cart
+                    //string query = @"UPDATE InventoryProducts
+                    //                SET Stocks = Stocks - c.Stocks
+                    //                FROM Cart c
+                    //                WHERE InventoryProducts.ProductID = c.ProductID";
+
+                    string query = @"
+                    UPDATE InventoryProducts
+                    SET InventoryProducts.Stocks = InventoryProducts.Stocks - c.Stocks
+                    FROM Cart c
+                    WHERE InventoryProducts.ProductID = c.ProductID";
+
+                    using (SqlCommand command = new SqlCommand(query, connect))
+                    {
+                        connect.Open();
+                        command.ExecuteNonQuery();
+                        connect.Close();
+                    }
+
+                    // Print receipt
+                    PrintReceipt();
+
+                    // Display success message
+                    MessageBox.Show("Payment Complete", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Clear cart and reset inputs
+                    ClearCart();
+                    txtInputMoney.Clear();
+                    txtChange.Clear();
+                    txtAmountToPay.Clear();
+
+                    LoadRequestData();
+                    LoadInventory();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error processing payment: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please provide sufficient payment to complete the purchase.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private void ClearCart()
+        {
+            try
+            {
+                string query = "DELETE FROM Cart";
+                using (SqlCommand command = new SqlCommand(query, connect))
+                {
+                    connect.Open();
+                    command.ExecuteNonQuery();
+                    connect.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error clearing cart: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void PrintReceipt()
+        {
+            try
+            {
+                string query = "SELECT ProductName, Stocks, Price FROM Cart";
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connect);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                string fileName = "Receipt.pdf";
+                using (var document = new iTextSharp.text.Document())
+                {
+                    PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
+                    document.Open();
+
+                    // Add title
+                    document.Add(new iTextSharp.text.Paragraph("*** Receipt ***\n\n"));
+
+                    // Add product details
+                    decimal totalAmount = 0;
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string productName = row["ProductName"].ToString();
+                        int quantity = Convert.ToInt32(row["Stocks"]);
+                        decimal price = Convert.ToDecimal(row["Price"]);
+                        totalAmount += price;
+
+                        document.Add(new iTextSharp.text.Paragraph($"{productName} x{quantity} - {price:C2}"));
+                    }
+
+                    // Add totals and payment details
+                    document.Add(new iTextSharp.text.Paragraph($"\nTotal: {totalAmount:C2}"));
+                    document.Add(new iTextSharp.text.Paragraph($"Paid: {decimal.Parse(txtInputMoney.Text):C2}"));
+                    document.Add(new iTextSharp.text.Paragraph($"Change: {decimal.Parse(txtChange.Text):C2}"));
+                    document.Add(new iTextSharp.text.Paragraph("\nThank you for your purchase!"));
+
+                    document.Close();
+                }
+
+                MessageBox.Show($"Receipt saved as {fileName}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Open the PDF file after creation
+                System.Diagnostics.Process.Start(fileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating receipt PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
