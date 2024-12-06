@@ -51,7 +51,7 @@
             // 
             this.btnPay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnPay.ForeColor = System.Drawing.Color.White;
-            this.btnPay.Location = new System.Drawing.Point(1024, 977);
+            this.btnPay.Location = new System.Drawing.Point(1030, 887);
             this.btnPay.Name = "btnPay";
             this.btnPay.Size = new System.Drawing.Size(177, 45);
             this.btnPay.TabIndex = 47;
@@ -116,7 +116,7 @@
             this.ProductViewGridCaloocanInventory.Name = "ProductViewGridCaloocanInventory";
             this.ProductViewGridCaloocanInventory.RowHeadersWidth = 62;
             this.ProductViewGridCaloocanInventory.RowTemplate.Height = 28;
-            this.ProductViewGridCaloocanInventory.Size = new System.Drawing.Size(882, 960);
+            this.ProductViewGridCaloocanInventory.Size = new System.Drawing.Size(882, 876);
             this.ProductViewGridCaloocanInventory.TabIndex = 44;
             // 
             // pictureBox1
@@ -147,7 +147,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(903, 699);
+            this.label2.Location = new System.Drawing.Point(900, 653);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(298, 37);
             this.label2.TabIndex = 49;
@@ -158,7 +158,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(903, 861);
+            this.label3.Location = new System.Drawing.Point(900, 815);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(161, 37);
             this.label3.TabIndex = 50;
@@ -169,7 +169,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(903, 780);
+            this.label4.Location = new System.Drawing.Point(900, 734);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(251, 37);
             this.label4.TabIndex = 51;
@@ -177,21 +177,21 @@
             // 
             // txtAmountToPay
             // 
-            this.txtAmountToPay.Location = new System.Drawing.Point(910, 740);
+            this.txtAmountToPay.Location = new System.Drawing.Point(907, 694);
             this.txtAmountToPay.Name = "txtAmountToPay";
             this.txtAmountToPay.Size = new System.Drawing.Size(389, 26);
             this.txtAmountToPay.TabIndex = 52;
             // 
             // txtInputMoney
             // 
-            this.txtInputMoney.Location = new System.Drawing.Point(910, 820);
+            this.txtInputMoney.Location = new System.Drawing.Point(907, 774);
             this.txtInputMoney.Name = "txtInputMoney";
             this.txtInputMoney.Size = new System.Drawing.Size(389, 26);
             this.txtInputMoney.TabIndex = 53;
             // 
             // txtChange
             // 
-            this.txtChange.Location = new System.Drawing.Point(910, 901);
+            this.txtChange.Location = new System.Drawing.Point(907, 855);
             this.txtChange.Name = "txtChange";
             this.txtChange.Size = new System.Drawing.Size(389, 26);
             this.txtChange.TabIndex = 54;
@@ -201,7 +201,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(106)))), ((int)(((byte)(123)))));
-            this.ClientSize = new System.Drawing.Size(1306, 1034);
+            this.ClientSize = new System.Drawing.Size(1306, 954);
             this.Controls.Add(this.txtChange);
             this.Controls.Add(this.txtInputMoney);
             this.Controls.Add(this.txtAmountToPay);

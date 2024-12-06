@@ -55,13 +55,14 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Arial Rounded MT Bold", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(644, 15);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(219, 37);
+            this.label7.Size = new System.Drawing.Size(202, 37);
             this.label7.TabIndex = 11;
-            this.label7.Text = "new product ";
+            this.label7.Text = "new phones";
             // 
             // dataGridViewNewlyAddedProd
             // 
@@ -89,9 +90,9 @@
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(3, 15);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(284, 37);
+            this.label6.Size = new System.Drawing.Size(222, 37);
             this.label6.TabIndex = 10;
-            this.label6.Text = "stock level status";
+            this.label6.Text = "phone stocks";
             // 
             // panel6
             // 
@@ -104,7 +105,7 @@
             // 
             // panel4
             // 
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(90)))), ((int)(((byte)(84)))));
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(106)))), ((int)(((byte)(123)))));
             this.panel4.Controls.Add(this.panel7);
             this.panel4.Controls.Add(this.label7);
             this.panel4.Controls.Add(this.label6);

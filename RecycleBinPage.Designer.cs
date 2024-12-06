@@ -70,7 +70,7 @@
             // 
             this.btnUndo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(195)))), ((int)(((byte)(173)))));
             this.btnUndo.ForeColor = System.Drawing.Color.Black;
-            this.btnUndo.Location = new System.Drawing.Point(965, 3);
+            this.btnUndo.Location = new System.Drawing.Point(11, 3);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(137, 46);
             this.btnUndo.TabIndex = 20;
@@ -88,7 +88,7 @@
             "VIVO",
             "HUAWEI",
             "ROG"});
-            this.cbCategoryFilter.Location = new System.Drawing.Point(687, 15);
+            this.cbCategoryFilter.Location = new System.Drawing.Point(770, 9);
             this.cbCategoryFilter.Name = "cbCategoryFilter";
             this.cbCategoryFilter.Size = new System.Drawing.Size(193, 28);
             this.cbCategoryFilter.TabIndex = 19;
@@ -97,7 +97,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::MobileInventory.Properties.Resources.search__1_;
-            this.pictureBox1.Location = new System.Drawing.Point(207, 15);
+            this.pictureBox1.Location = new System.Drawing.Point(290, 9);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(38, 30);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -118,7 +118,7 @@
             // txtSearchBar
             // 
             this.txtSearchBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearchBar.Location = new System.Drawing.Point(251, 15);
+            this.txtSearchBar.Location = new System.Drawing.Point(334, 9);
             this.txtSearchBar.Name = "txtSearchBar";
             this.txtSearchBar.Size = new System.Drawing.Size(429, 30);
             this.txtSearchBar.TabIndex = 16;
